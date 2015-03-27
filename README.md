@@ -1,6 +1,6 @@
 # GithubStatusSlack
 
-TODO: Write a gem description
+A super simple gem that actively checks status.github.com and posts a message to slack when it's updated.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`ruby bin/github_status_slack --webhook-url=<SLACK URL> &`
 
 ## Contributing
 
