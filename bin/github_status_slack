@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+$:.push File.expand_path("../../lib", __FILE__)
+
+require 'github_status_slack'
+require 'thor'
+
+class GithubStatusCli < Thor
+  desc "notify_slack", "Query the github status api and post to Slack"
+  option :webhook_url, :required => true
+  option :api_url, :default => 'https://status.github.com/api/last-message.json'
+  option :channels, :default => ['#robots']
+  option :username, :default => 'github_status'
+  option :interval_method
+  option :interval
+
+  def notify_slack
+    option_hash = { channels: options[:channels], username: options[:username],
+                    interval_method: options[:interval_method], interval: options[:interval] }
+    notifier = GithubStatusSlack::Notifier.new( options[:webhook_url], options[:api_url], option_hash )
+    notifier.notify_slack
+  end
+end
+
+GithubStatusCli.start(ARGV)
