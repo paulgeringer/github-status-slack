@@ -13,7 +13,7 @@ module GithubStatusSlack
     attr_accessor :interval, :interval_method, :scheduler, :status_retriever, :slack_notifier
 
     def initialize( webhook_url, api_url, options={} )
-      @slack_notifier = Slack::Notifier.new( webhook_url, channels: options[:channels], username: options[:username] )
+      @slack_notifier = Slack::Notifier.new( webhook_url, channel: options[:channel], username: options[:username] )
       @status_retriever = GithubStatusSlack::StatusRetriever.new(api_url)
       @scheduler = Rufus::Scheduler.new
       @interval_method = options[:interval_type] || 'every'
