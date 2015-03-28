@@ -7,7 +7,13 @@ module GithubStatusSlack
     end
 
     def request
-      response = Net::HTTP.get(uri)
+      begin
+        response = Net::HTTP.get(uri)
+      rescue Errno::ETIMEDOUT => e
+        puts "Couldn't hit the status page."
+        puts "Retrying..."
+        retry
+      end
       @json = JSON.parse(response)
     end
 
